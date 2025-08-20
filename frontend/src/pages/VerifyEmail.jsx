@@ -1,0 +1,41 @@
+import { auth } from '../api';
+import { toast } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
+const VerifyEmail = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const verifyEmail = async () => {
+      try {
+        const token = searchParams.get('token');
+        const userId = searchParams.get('userId');
+        if (!token || !userId) {
+          toast.error('Invalid verification link. Please try logging in again.');
+          navigate('/login');
+          return;
+        }
+        await auth.verifyEmail({ token, userId });
+        toast.success('Email verified successfully! Redirecting to home...');
+        setTimeout(() => navigate('/'), 2000);
+      } catch (error) {
+        const message = error.response?.data?.error || 'Failed to verify email. Please try logging in again.';
+        toast.error(message);
+        navigate('/login');
+      }
+    };
+    verifyEmail();
+  }, [navigate, searchParams]);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+        Verifying your email...
+      </h2>
+    </div>
+  );
+};
+
+export default VerifyEmail;

@@ -1,0 +1,7 @@
+---
+globs: models/*
+alwaysApply: false
+---
+# Enforce consistent casing
+
+We use `snake_case` for database columns and tables, but `camelCase` for JavaScript object properties. Therefore, every model file that returns database rows as objects should use the `toCamelCase` utility function from `miscUtils.js`.
