@@ -24,8 +24,8 @@ psql postgres
 
 Then run these commands:
 ```
-CREATE DATABASE name-of-your-web-app;
-\c name-of-your-web-app
+CREATE DATABASE name_of_your_web_app;
+\c name_of_your_web_app
 ```
 
 Now, you need to determine the absolute path to the `init.sql` file that's in the root directory of this repository. For me, this is `/Users/samcraft/VSCode/web-app-template/init.sql`. With the absolute path, run these commands:
@@ -38,7 +38,7 @@ Now, you need to determine the absolute path to the `init.sql` file that's in th
 Now, set the `PG_URL` variable in the `.env` file:
 
 ```
-PG_URL=postgresql://your-macOS-username@localhost:5432/name-of-your-web-app
+PG_URL=postgresql://your-macOS-username@localhost:5432/name_of_your_web_app
 ```
 
 In the terminal, generate a secure session secret by running:
