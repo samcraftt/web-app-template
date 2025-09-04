@@ -31,8 +31,8 @@ const sendVerificationEmail = async (email, token, userId) => {
     subject: 'Verify your email',
     html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; color: #333;">
-        <h1 style="color: #2563eb; font-size: 24px; margin-bottom: 20px;">Thank you for signing up!</h1>
-        <p style="font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
+        <h1 style="color: #2563eb; font-size: 24px; margin-bottom: 20px; text-align: center;">Thank you for signing up!</h1>
+        <p style="font-size: 16px; line-height: 1.5; margin-bottom: 25px; text-align: center;">
           Please click the button below to verify your email address.
         </p>
         <div style="text-align: center; margin: 30px 0;">
