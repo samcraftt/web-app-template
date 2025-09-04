@@ -10,6 +10,7 @@ const checkAuth = async (req, res) => {
     if (!user || !user.verified) return res.end();
     res.json({ user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Error checking authentication' });
   }
 }
@@ -29,6 +30,7 @@ const login = async (req, res) => {
     req.session.userId = user.id;
     res.json({ user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Error logging in' });
   }
 };
@@ -41,6 +43,7 @@ const logout = async (req, res) => {
       res.end();
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Error logging out' });
   }
 };
@@ -55,6 +58,7 @@ const signup = async (req, res) => {
     await sendVerificationEmail(email, token, user.id);
     res.end();
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Error creating user' });
   }
 };
@@ -69,6 +73,7 @@ const verifyEmail = async (req, res) => {
     req.session.userId = user.id;
     res.end();
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Error verifying email. Please try logging in again.' });
   }
 };
