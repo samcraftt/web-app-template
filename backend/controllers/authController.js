@@ -13,7 +13,7 @@ const checkAuth = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: 'Error checking authentication' });
   }
-}
+};
 
 const login = async (req, res) => {
   try {
