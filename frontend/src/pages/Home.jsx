@@ -31,7 +31,7 @@ const Home = () => {
                 {user ? `Welcome, ${user.firstName}!` : 'Welcome!'}
               </h1>
               <p className="mt-1 text-sm text-gray-500">
-                {user ? `You are logged in as ${user.email}` : 'You are not logged in'}
+                {!user && 'Log in to get started'}
               </p>
             </div>
             {user ? (
