@@ -1,7 +1,7 @@
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { Link, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import { showErrorMessage } from '../utils/miscUtils';
 import { useAuth } from '../AuthContext';
 import { useState } from 'react';
 
@@ -29,8 +29,7 @@ const Login = () => {
       await login(formData);
       navigate('/');
     } catch(error) {
-      const message = error.response?.data?.error || 'Log in failed, please try again.';
-      toast.error(message);
+      showErrorMessage(error, 'Log in failed, please try again.');
     }
     setLoading(false);
   };

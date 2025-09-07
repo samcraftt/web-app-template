@@ -1,3 +1,4 @@
+import { showErrorMessage } from '../utils/miscUtils';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../AuthContext';
 import { useEffect } from 'react';
@@ -22,8 +23,7 @@ const VerifyEmail = () => {
         toast.success('Email verified successfully! Redirecting to home...');
         setTimeout(() => navigate('/'), 2000);
       } catch (error) {
-        const message = error.response?.data?.error || 'Failed to verify email. Please try logging in again.';
-        toast.error(message);
+        showErrorMessage(error, 'Failed to verify email. Please try logging in again.');
         navigate('/login');
       }
     };

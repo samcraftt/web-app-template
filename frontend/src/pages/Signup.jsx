@@ -1,5 +1,6 @@
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { showErrorMessage } from '../utils/miscUtils';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../AuthContext';
 import { useState } from 'react';
@@ -66,8 +67,7 @@ const Signup = () => {
       await signup(signupData);
       toast.success('Account created! Please check your email to verify your account.');
     } catch (error) {
-      const message = error.response?.data?.error || 'Sign up failed, please try again.';
-      toast.error(message);
+      showErrorMessage(error, 'Sign up failed, please try again.');
     }
     setLoading(false);
   };
