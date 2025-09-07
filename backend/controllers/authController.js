@@ -28,7 +28,7 @@ const login = async (req, res) => {
       return res.status(400).json({ error: 'Please check your email for verification.' });
     }
     req.session.userId = user.id;
-    res.json({ user });
+    res.end();
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Error logging in' });

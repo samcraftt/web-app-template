@@ -1,25 +1,10 @@
-import { auth } from '../api';
 import Button from '../components/Button';
-import { useEffect, useState } from 'react';
+import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  // Fetch user
-  useEffect(() => {
-    const checkAuth = async () => {
-      const user = await auth.checkAuth();
-      if (user) setUser(user);
-    };
-    checkAuth();
-  }, []);
-
-  const logout = async () => {
-    await auth.logout();
-    setUser(null);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">

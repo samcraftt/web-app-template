@@ -1,8 +1,8 @@
-import { auth } from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useAuth } from '../AuthContext';
 import { useState } from 'react';
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
     password: ''
   });
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,11 +22,11 @@ const Login = () => {
     }));
   };
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await auth.login(formData);
+      await login(formData);
       navigate('/');
     } catch(error) {
       const message = error.response?.data?.error || 'Log in failed, please try again.';
@@ -51,7 +52,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={login}>
+        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <div className="space-y-4">
             <Input
               id="email"

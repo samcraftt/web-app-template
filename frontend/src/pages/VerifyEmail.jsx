@@ -1,14 +1,15 @@
-import { auth } from '../api';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../AuthContext';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const VerifyEmail = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { verifyEmail } = useAuth();
 
   useEffect(() => {
-    const verifyEmail = async () => {
+    const verify = async () => {
       try {
         const token = searchParams.get('token');
         const userId = searchParams.get('userId');
@@ -17,7 +18,7 @@ const VerifyEmail = () => {
           navigate('/login');
           return;
         }
-        await auth.verifyEmail({ token, userId });
+        await verifyEmail({ token, userId });
         toast.success('Email verified successfully! Redirecting to home...');
         setTimeout(() => navigate('/'), 2000);
       } catch (error) {
@@ -26,8 +27,8 @@ const VerifyEmail = () => {
         navigate('/login');
       }
     };
-    verifyEmail();
-  }, [navigate, searchParams]);
+    verify();
+  }, [navigate, searchParams, verifyEmail]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">

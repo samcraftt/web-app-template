@@ -1,7 +1,7 @@
-import { auth } from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../AuthContext';
 import { useState } from 'react';
 
 const passwordRequirements = {
@@ -39,6 +39,7 @@ const Signup = () => {
     hasSpecialChar: false,
     passwordsMatch: false
   });
+  const { signup } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,12 +58,12 @@ const Signup = () => {
     return Object.values(passwordSecurity).every(Boolean);
   };
 
-  const signup = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const { confirmPassword, ...signupData } = formData;
-      await auth.signup(signupData);
+      await signup(signupData);
       toast.success('Account created! Please check your email to verify your account.');
     } catch (error) {
       const message = error.response?.data?.error || 'Sign up failed, please try again.';
@@ -89,7 +90,7 @@ const Signup = () => {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={signup}>
+        <form className="mt-8 space-y-6" onSubmit={handleSignup}>
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Input
