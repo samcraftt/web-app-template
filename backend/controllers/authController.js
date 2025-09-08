@@ -1,4 +1,4 @@
-const { sendVerificationEmail } = require('../utils/emailService');
+const { sendVerificationEmail } = require('../config/nodemailer');
 const Token = require('../models/Token');
 const User = require('../models/User');
 
