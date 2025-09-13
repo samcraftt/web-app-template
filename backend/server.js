@@ -10,6 +10,9 @@ require('dotenv').config();
 
 const app = express();
 
+// Trust first proxy
+app.set('trust proxy', 1);
+
 // Security
 app.use(helmet());
 app.use(cors({
