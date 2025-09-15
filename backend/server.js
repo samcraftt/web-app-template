@@ -1,4 +1,5 @@
 const authRoutes = require('./routes/authRoutes');
+const basicAuth = require('express-basic-auth');
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
@@ -12,6 +13,17 @@ const app = express();
 
 // Trust first proxy
 app.set('trust proxy', 1);
+
+// Password protect the staging site
+if (process.env.ENVIRONMENT === 'staging') {
+  app.use(basicAuth({
+    users: { 
+      [process.env.STAGING_USERNAME]: process.env.STAGING_PASSWORD
+    },
+    challenge: true,
+    realm: 'Staging site'
+  }));
+}
 
 // Security
 app.use(helmet());
