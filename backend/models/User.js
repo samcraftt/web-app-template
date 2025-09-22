@@ -30,6 +30,17 @@ class User {
     return toCamelCase(rows[0]);
   }
 
+  static async resetPassword(id, newPassword) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await query(
+      `UPDATE users 
+       SET hashed_password = $1 
+       WHERE id = $2 
+       RETURNING *`,
+      [hashedPassword, id]
+    );
+  }
+
   static async verify(id) {
     const { rows } = await query(
       `UPDATE users 

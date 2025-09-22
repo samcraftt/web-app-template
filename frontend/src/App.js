@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Loading from './pages/Loading';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import ResetPassword from './pages/ResetPassword';
 import Signup from './pages/Signup';
 import toast from 'react-hot-toast';
 import Toaster from './components/Toaster';
@@ -27,6 +28,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
 

@@ -25,6 +25,14 @@ export const AuthProvider = ({ children }) => {
     await checkAuth();
   };
 
+  // Affects user object, so checkAuth
+  const resetPassword = async (password) => {
+    await auth.resetPassword(password);
+    await checkAuth();
+  }
+
+  const sendResetPasswordEmail = async (email) => await auth.sendResetPasswordEmail(email);
+
   const signup = async (data) => await auth.signup(data);
 
   // Affects user object, so checkAuth
@@ -45,6 +53,8 @@ export const AuthProvider = ({ children }) => {
         checkAuth,
         login,
         logout,
+        resetPassword,
+        sendResetPasswordEmail,
         signup,
         verifyEmail
       }}
