@@ -1,55 +1,35 @@
 const bcrypt = require('bcryptjs');
-const { toCamelCase } = require('../utils/miscUtils');
-const { query } = require('../config/database');
+const prisma = require('../config/prisma');
 
 class User {
   static async create({ email, firstName, lastName, password }) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const { rows } = await query(
-      `INSERT INTO users (email, first_name, last_name, hashed_password)
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-      [email, firstName, lastName, hashedPassword]
-    );
-    return toCamelCase(rows[0]);
+    return prisma.user.create({
+      data: { email, firstName, lastName, hashedPassword }
+    });
   }
 
   static async findByEmail(email) {
-    const { rows } = await query(
-      'SELECT * FROM users WHERE email = $1',
-      [email]
-    );
-    return toCamelCase(rows[0]);
+    return prisma.user.findUnique({ where: { email } });
   }
 
   static async findById(id) {
-    const { rows } = await query(
-      'SELECT * FROM users WHERE id = $1',
-      [id]
-    );
-    return toCamelCase(rows[0]);
+    return prisma.user.findUnique({ where: { id } });
   }
 
   static async resetPassword(id, newPassword) {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await query(
-      `UPDATE users 
-       SET hashed_password = $1 
-       WHERE id = $2 
-       RETURNING *`,
-      [hashedPassword, id]
-    );
+    await prisma.user.update({
+      where: { id },
+      data: { hashedPassword }
+    });
   }
 
   static async verify(id) {
-    const { rows } = await query(
-      `UPDATE users 
-       SET verified = true 
-       WHERE id = $1 
-       RETURNING *`,
-      [id]
-    );
-    return toCamelCase(rows[0]);
+    return prisma.user.update({
+      where: { id },
+      data: { verified: true }
+    });
   }
 
   static async validatePassword(hashedPassword, password) {

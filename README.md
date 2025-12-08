@@ -26,12 +26,6 @@ Then run these commands:
 ```
 CREATE DATABASE name_of_your_web_app;
 \c name_of_your_web_app
-```
-
-Now, you need to determine the absolute path to the `init.sql` file that's in the root directory of this repository. For me, this is `/Users/samcraft/VSCode/web-app-template/init.sql`. With the absolute path, run these commands:
-
-```
-\i /absolute/path/to/init.sql
 \q
 ```
 
@@ -64,7 +58,13 @@ Now, create a copy of the `env.sample` file in the `frontend` directory and rena
 
 ### Install packages
 
-From the `backend` directory, run the command `npm install`, and from the `frontend` directory, run the command `npm install`.
+From the `backend` directory, run these commands:
+```
+npm install
+npx prisma generate
+```
+
+From the `frontend` directory, run the command `npm install`.
 
 ### Run the backend and frontend
 
