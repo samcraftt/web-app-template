@@ -17,8 +17,8 @@ Create a copy of the `env.sample` file in the `backend` directory and rename it 
 Open a terminal, and from any directory, run the following commands:
 
 ```
-brew install postgresql@17 redis
-brew services start postgresql@17 redis
+brew install postgresql
+brew services start postgresql
 psql postgres
 ```
 
