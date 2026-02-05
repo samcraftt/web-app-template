@@ -15,7 +15,6 @@ model User {
   hashedPassword String?  @map("hashed_password")
   verified      Boolean   @default(false)
   createdAt     DateTime  @default(now()) @map("created_at")
-  school String
   @@map("users")
 }
 
