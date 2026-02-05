@@ -66,6 +66,10 @@ npx prisma generate
 
 From the `frontend` directory, run the command `npm install`.
 
+### Initialize database
+
+From the `backend` directory, run `npm run migrate init`.
+
 ### Run the backend and frontend
 
 Open a terminal. From the `backend` directory, run the command `npm run dev`.
